@@ -1,16 +1,14 @@
 import React from "react";
-import "./App.css";
 import NavBar from "./components/NavBar";
-import SearchBar from "./components/SearchBar";
-import EmployeeList from "./components/EmployeeList";
+import Main from "./components/Main";
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <NavBar />
-       <SearchBar/>
+    <div> 
+      <NavBar/>
+      <Main />
     </div>
   );
-};
+}
 
 export default App;
