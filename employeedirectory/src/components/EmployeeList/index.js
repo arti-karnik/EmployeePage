@@ -2,7 +2,8 @@ import React from "react";
 import Moment from "moment";
 
 function EmployeeList(props) {
-  var data = props.result;
+  
+  var data = props.filteredEmployees;
 
   return (
     <table>

@@ -6,7 +6,7 @@ function SearchBar(props) {
       <div className="form-group">
         <label htmlFor="search">Search:</label>
         <input
-          onChange={e => props.handleInputChange(e, "")}
+          onChange={props.handleInputChange}
           value={props.search}
           name="search"
           type="text"

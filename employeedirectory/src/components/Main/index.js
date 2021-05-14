@@ -10,40 +10,44 @@ class Main extends Component {
       email: 'ascending',
       phone: 'ascending'
     },
+    employees: [],
+    filteredEmployees: [],
   };
 
   componentDidMount() {
     API.search()
       .then(res => this.setState({ 
-        result: res.data.results,
-        filteredUser: res.data.results
+        employees: res.data.results,
+        filteredEmployees: res.data.results
        }))
       .catch(err => console.log(err));
   };
 
-  handleInputChange =  (event, sortKey) => {
-    console.log("handle inu" + sortKey);
-    event.preventDefault();
+  handleInputChange = event => {
+    const value = event.target.value;
+    this.setState({ search: value });
+    this.filterEmployees(value.toLowerCase().trim());
   };
-  handleSort =  (event, sortKey, ascending) => {
-    console.log("handle inu" + sortKey);
-    event.preventDefault();
-    let reverse = ascending ? 1 : -1;
-    const data = this.state.result;
-    console.log(reverse)
-    if (reverse) {
-      data.sort((a,b) => a[sortKey].localeCompare(b[sortKey]))
-
+  filterEmployees = (input) => {
+    if (input) {
+      this.setState({
+        filteredEmployees: this.state.employees.filter((employee) => {
+          return (
+            employee.name.first
+              .toLowerCase()
+              .concat(" ", employee.name.last.toLowerCase())
+              .includes(input)
+          );
+        }),
+      });
     } else {
-      data.sort((a,b) => b[sortKey].localeCompare(a[sortKey]))
+      this.setState({ filteredEmployees: this.state.employees });
     }
-    this.setState({data})
   };
+
   
   sortBy = (key) => {
-    const data = this.state.result;
-    console.log(data)
-    console.log(key)
+    const data = this.state.filteredEmployees;
     this.setState({
       data: data.sort((a, b) => {
         const asc = this.state.direction[key] === 'ascending';
@@ -62,14 +66,15 @@ class Main extends Component {
             : 'ascending'
         }
     })
-}
+  }
 
   render() {
     return (
     <div>
         <SearchBar search={this.state.search} handleFormSubmit={this.handleFormSubmit}
-          handleInputChange={this.handleInputChange}/>
-        <EmployeeList sortBy={this.sortBy}  result={this.state.result}/>
+        handleInputChange={this.handleInputChange}
+                    />
+        <EmployeeList sortBy={this.sortBy} filteredEmployees={this.state.filteredEmployees}/>
     </div>
     );
   }
