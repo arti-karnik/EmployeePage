@@ -28,6 +28,7 @@ class Main extends Component {
     this.setState({ search: value });
     this.filterEmployees(value.toLowerCase().trim());
   };
+
   filterEmployees = (input) => {
     if (input) {
       this.setState({
@@ -36,7 +37,10 @@ class Main extends Component {
             employee.name.first
               .toLowerCase()
               .concat(" ", employee.name.last.toLowerCase())
-              .includes(input)
+              .includes(input) ||
+            employee.email
+              .toLowerCase()
+              .includes(input) 
           );
         }),
       });
@@ -70,7 +74,7 @@ class Main extends Component {
 
   render() {
     return (
-    <div>
+    <div class="container">
         <SearchBar search={this.state.search} handleFormSubmit={this.handleFormSubmit}
         handleInputChange={this.handleInputChange}/>
         <EmployeeList sortBy={this.sortBy} EmployeeList={this.state.EmployeeList}/>

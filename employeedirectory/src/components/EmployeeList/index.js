@@ -1,5 +1,6 @@
 import React from "react";
 import Moment from "moment";
+import "./style.css";
 
 function EmployeeList(props) {
   
@@ -21,7 +22,7 @@ function EmployeeList(props) {
       <tbody>
         {data.map(employee => (
           <tr key={employee.id.value == null ? Math.random() : employee.id.value}>
-            <td> <img src={employee.picture.thumbnail} alt="Thumb image"/> </td>
+            <td> <img src={employee.picture.medium} alt="Thumb image"/> </td>
             <td>{employee.name.first}</td>
             <td>{employee.name.last}</td>
             <td>{employee.phone}</td>
