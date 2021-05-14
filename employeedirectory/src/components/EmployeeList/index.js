@@ -2,6 +2,8 @@ import React from "react";
 import Moment from "moment";
 
 function EmployeeList(props) {
+  var data = props.result;
+
   return (
     <table>
       <caption>Employees </caption>
@@ -9,15 +11,15 @@ function EmployeeList(props) {
         <tr>
           <th>Photo</th>
           <th>First Name</th>
-          <th>Last Name</th>
-          <th>Phone No</th>
-          <th>Email</th>
+          <th onClick={e => props.onSort}>Last Name</th>
+          <th><button onClick={() => props.sortBy('phone')}>Phone</button></th>
+          <th><button onClick={() => props.sortBy('email')}>Email</button></th>
           <th>Date of Birth</th>
         </tr>
       </thead>
       <tbody>
-        {props.result.map(employee => (
-          <tr key={employee.id}>
+        {data.map(employee => (
+          <tr key={employee.id.value == null ? Math.random() : employee.id.value}>
             <td> <img src={employee.picture.thumbnail} alt="Thumb image"/> </td>
             <td>{employee.name.first}</td>
             <td>{employee.name.last}</td>
@@ -30,5 +32,4 @@ function EmployeeList(props) {
     </table>
   );
 }
-
 export default EmployeeList;
