@@ -3,7 +3,7 @@ import Moment from "moment";
 
 function EmployeeList(props) {
   
-  var data = props.filteredEmployees;
+  var data = props.EmployeeList;
 
   return (
     <table>

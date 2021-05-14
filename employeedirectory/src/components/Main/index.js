@@ -10,15 +10,15 @@ class Main extends Component {
       email: 'ascending',
       phone: 'ascending'
     },
-    employees: [],
-    filteredEmployees: [],
+    AllEmployees: [],
+    EmployeeList: [],
   };
 
   componentDidMount() {
     API.search()
       .then(res => this.setState({ 
-        employees: res.data.results,
-        filteredEmployees: res.data.results
+        AllEmployees: res.data.results,
+        EmployeeList: res.data.results
        }))
       .catch(err => console.log(err));
   };
@@ -31,7 +31,7 @@ class Main extends Component {
   filterEmployees = (input) => {
     if (input) {
       this.setState({
-        filteredEmployees: this.state.employees.filter((employee) => {
+        EmployeeList: this.state.AllEmployees.filter((employee) => {
           return (
             employee.name.first
               .toLowerCase()
@@ -41,13 +41,13 @@ class Main extends Component {
         }),
       });
     } else {
-      this.setState({ filteredEmployees: this.state.employees });
+      this.setState({ EmployeeList: this.state.AllEmployees });
     }
   };
 
   
   sortBy = (key) => {
-    const data = this.state.filteredEmployees;
+    const data = this.state.EmployeeList;
     this.setState({
       data: data.sort((a, b) => {
         const asc = this.state.direction[key] === 'ascending';
@@ -72,9 +72,8 @@ class Main extends Component {
     return (
     <div>
         <SearchBar search={this.state.search} handleFormSubmit={this.handleFormSubmit}
-        handleInputChange={this.handleInputChange}
-                    />
-        <EmployeeList sortBy={this.sortBy} filteredEmployees={this.state.filteredEmployees}/>
+        handleInputChange={this.handleInputChange}/>
+        <EmployeeList sortBy={this.sortBy} EmployeeList={this.state.EmployeeList}/>
     </div>
     );
   }
