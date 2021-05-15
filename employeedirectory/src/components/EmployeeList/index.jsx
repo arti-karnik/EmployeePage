@@ -6,7 +6,6 @@ function EmployeeList(props) {
   var data = props.EmployeeList;
   return (
     <table>
-      <caption>Employees </caption>
       <thead>
         <tr>
           <th>Photo</th>
