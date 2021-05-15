@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import EmployeeList from "../../components/EmployeeList";
+import EmployeeList from "../EmployeeList";
 import API from "../../utils/API";
-import SearchBar from "../SearchBar";
+import SearchBar from "../SearchBar/index.jsx";
 
 class Main extends Component {
   state = {
@@ -23,24 +23,26 @@ class Main extends Component {
       .catch(err => console.log(err));
   };
 
+  // Method to handle input change
   handleInputChange = event => {
     const value = event.target.value;
     this.setState({ search: value });
     this.filterEmployees(value.toLowerCase().trim());
   };
 
-  filterEmployees = (input) => {
-    if (input) {
+  // Method to filter Employee List based on search
+  filterEmployees = (query) => {
+    if (query) {
       this.setState({
         EmployeeList: this.state.AllEmployees.filter((employee) => {
           return (
             employee.name.first
               .toLowerCase()
               .concat(" ", employee.name.last.toLowerCase())
-              .includes(input) ||
+              .includes(query) ||
             employee.email
               .toLowerCase()
-              .includes(input) 
+              .includes(query) 
           );
         }),
       });
@@ -48,8 +50,8 @@ class Main extends Component {
       this.setState({ EmployeeList: this.state.AllEmployees });
     }
   };
-
   
+  // Method to sort Employee List ascending and descending
   sortBy = (event, key) => {
     const data = this.state.EmployeeList;
     this.setState({
