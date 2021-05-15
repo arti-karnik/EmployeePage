@@ -5,6 +5,7 @@ import "./style.css";
 function EmployeeList(props) {
   
   var data = props.EmployeeList;
+  let sorted = true
 
   return (
     <table>
@@ -12,10 +13,14 @@ function EmployeeList(props) {
       <thead>
         <tr>
           <th>Photo</th>
-          <th>First Name</th>
+          <th >First Name</th>
           <th onClick={e => props.onSort}>Last Name</th>
-          <th><button onClick={() => props.sortBy('phone')}>Phone</button></th>
-          <th><button onClick={() => props.sortBy('email')}>Email</button></th>
+          <th onClick={e => props.sortBy(e, 'phone')}> Phone
+          <span class={props.phoneSort=== 'ascending' ? 'headerSortDown' : 'headerSortUp'}>  </span></th>
+          <th onClick={e => props.sortBy(e, 'email')} >Email
+          <span class={props.emailSort=== 'ascending' ? 'headerSortDown' : 'headerSortUp'}>  
+          </span>
+          </th>
           <th>Date of Birth</th>
         </tr>
       </thead>

@@ -50,7 +50,7 @@ class Main extends Component {
   };
 
   
-  sortBy = (key) => {
+  sortBy = (event, key) => {
     const data = this.state.EmployeeList;
     this.setState({
       data: data.sort((a, b) => {
@@ -64,11 +64,11 @@ class Main extends Component {
         }
       }),
 
-        direction: {
-            [key]: this.state.direction[key] === 'ascending'
-            ? 'descending'
-            : 'ascending'
-        }
+      direction: {
+          [key]: this.state.direction[key] === 'ascending'
+          ? 'descending'
+          : 'ascending'
+      }
     })
   }
 
@@ -77,7 +77,7 @@ class Main extends Component {
     <div class="container">
         <SearchBar search={this.state.search} handleFormSubmit={this.handleFormSubmit}
         handleInputChange={this.handleInputChange}/>
-        <EmployeeList sortBy={this.sortBy} EmployeeList={this.state.EmployeeList}/>
+        <EmployeeList sortBy={this.sortBy} EmployeeList={this.state.EmployeeList} emailSort={this.state.direction['email']} phoneSort={this.state.direction['phone']}/>
     </div>
     );
   }
